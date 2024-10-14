@@ -29,7 +29,7 @@ const handleLogout = () => {
 
 
 function showSuccess() {
-    toast.add({ severity: 'success', summary: '欢迎来到Vehiclism汽车主义大数据平台！', detail: '我们希望这个平台能满足您的所有需求。\n 如果有任何问题请致电：17321612271', life: 5000 });
+    toast.add({ severity: 'success', summary: '欢迎来到数智博物平台！', detail: '我们希望这个平台能满足您的所有需求。\n 如果有任何问题请致电：1234567890', life: 5000 });
 }
 
 // 定义响应式变量

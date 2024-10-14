@@ -20,7 +20,6 @@ const model = ref([
                         icon: 'pi pi-fw pi-search',
                         items: [
                             { label: '博物馆数据查询', icon: 'pi pi-fw pi-search-plus', to: '/carsearch' },
-                            { label: '藏品信息查询', icon: 'pi pi-fw pi-search-plus', to: '/salesearch' }
                         ]
                     },
                     {
