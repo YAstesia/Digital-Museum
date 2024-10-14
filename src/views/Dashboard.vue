@@ -25,34 +25,15 @@ function setChartData() {
     const documentStyle = getComputedStyle(document.documentElement);
 
     return {
-        labels: ['4月', '5月', '6月', '7月'],
+        labels: ['2018年', '2019年', '2020年', '2021年', '2022年', '2023年',],
         datasets: [
             {
                 type: 'bar',
-                label: '燃料电池汽车',
+                label: '总接待游客数（亿人次）',
                 backgroundColor: documentStyle.getPropertyValue('--p-primary-400'),
-                data: [85.8, 86.3, 91, 84],
+                data: [10.08, 12.27, 5.4, 7.79, 5.78, 12.90],
                 barThickness: 32
             },
-            {
-                type: 'bar',
-                label: '混合动力汽车',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-300'),
-                data: [33.1, 29.9, 43.6, 40],
-                barThickness: 32
-            },
-            {
-                type: 'bar',
-                label: '新能源汽车',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-200'),
-                data: [85, 95.5, 104.9, 99.1],
-                borderRadius: {
-                    topLeft: 8,
-                    topRight: 8
-                },
-                borderSkipped: true,
-                barThickness: 32
-            }
         ]
     };
 }
@@ -110,103 +91,102 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
     <div class="grid grid-cols-12 gap-8">
         <div class="col-span-12 xl:col-span-6">
             <div class="card">
-                <div class="font-semibold text-xl mb-4">当月热销车系</div>
+                <div class="font-semibold text-xl mb-4">2023年最受欢迎博物馆</div>
                 <DataTable :value="products" :rows="5" :paginator="true" responsiveLayout="scroll">
-                    <Column field="rank" header="排名" :sortable="false" style="width: 15%">
+                    <Column field="rank" header="排名" :sortable="false" style="width: 10%">
                         <template #body="slotProps">
                             <span class="font-bold" style="font-size: 14pt;">{{ slotProps.data.rank }}</span>
                         </template>
                     </Column>
-                    <Column field="series" header="品牌" :sortable="false" style="width: 25%">
+                    <Column field="series" header="名称" :sortable="false" style="width: 30%">
                         <template #body="slotProps">
                             <span class="font-semibold" style="font-size: 12pt;">{{ slotProps.data.series }}</span>
                         </template>
                     </Column>
-                    <Column field="type" header="车系" :sortable="false" style="width: 30%">
+                    <Column field="sales" header="馆藏量（件）" :sortable="false" style="width: 30%">
                         <template #body="slotProps">
-                            <span class="font-bold" style="font-size: 12pt;">{{ slotProps.data.type }}</span>
+                            <span class="font-bold" style="font-size: 14pt; color: red;">{{ slotProps.data.type
+                                }}</span>
                         </template>
                     </Column>
-                    <Column field="sales" header="月销量" :sortable="false" style="width: 30%">
+                    <Column field="sales" header="接待游客数" :sortable="false" style="width: 30%">
                         <template #body="slotProps">
                             <span class="font-bold" style="font-size: 14pt; color: crimson;">{{ slotProps.data.sales
-                                }}</span>
+                                }} 万人</span>
                         </template>
                     </Column>
                 </DataTable>
             </div>
             <div class="card">
                 <div class="flex justify-between items-center mb-6">
-                    <div class="font-semibold text-xl">热销品牌</div>
-                    <div class="font-semibold text-xl">年销量</div>
-                    <div class="font-semibold text-xl">当月销量</div>
+                    <div class="font-semibold text-xl w-1/3">省份</div>
+                    <div class="font-semibold text-xl w-1/3" style="margin-right: -60px">博物馆数</div>
+                    <div class="font-semibold text-xl w=1/3">接待游客数（万人次）</div>
                 </div>
                 <ul class="list-none p-0 m-0">
                     <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                        <div>
+                        <div class="w-1/3">
                             <span class="text-surface-900 dark:text-surface-0 mr-2 mb-1 md:mb-0 font-bold"
-                                style="font-size: 14pt;">比亚迪</span>
-                            <div class="mt-1 text-muted-color">月销量No.1</div>
+                                style="font-size: 14pt;">山东省</span>
+                            <div class="mt-1 text-muted-color">博物馆数量No.1</div>
                         </div>
-                        <div class="mt-2 md:mt-0 flex justify-center items-center h-full">
-                            <span class="text-red-500 ml-4 font-bold" style="font-size: 20pt;">1601022</span>
+                        <div class="mt-2 md:mt-0 flex justify-center items-center h-full w-1/3">
+                            <span class="text-red-500 ml-4 font-bold" style="font-size: 20pt;">711</span>
                         </div>
-                        <div class="mt-2 md:mt-0 flex items-center">
-                            <span class="text-red-500 ml-4 font-bold" style="font-size: 20pt;">298893</span>
-                        </div>
-                    </li>
-                    <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                        <div>
-                            <span class="text-surface-900 dark:text-surface-0 font-bold mr-2 mb-1 md:mb-0"
-                                style="font-size: 14pt;">大众</span>
-                            <div class="mt-1 text-muted-color">月销量No.2</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0   flex justify-center items-center h-full">
-                            <span class="text-red-400 ml-4 font-bold" style="font-size: 20pt;">1069775</span>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0   flex items-center">
-                            <span class="text-red-400 ml-4 font-bold" style="font-size: 20pt;">149007</span>
+                        <div class="mt-2 md:mt-0 flex justify-center items-center w-1/3">
+                            <span class="text-red-500 ml-4 font-bold" style="font-size: 20pt;">8750</span>
                         </div>
                     </li>
                     <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                        <div>
+                        <div class="w-1/3">
                             <span class="text-surface-900 dark:text-surface-0 font-bold mr-2 mb-1 md:mb-0"
-                                style="font-size: 14pt;">丰田</span>
-                            <div class="mt-1 text-muted-color">月销量No.3</div>
+                                style="font-size: 14pt;">浙江省</span>
+                            <div class="mt-1 text-muted-color">博物馆数量No.2</div>
                         </div>
-                        <div class="mt-2 md:mt-0 ml-0   flex justify-center items-center h-full">
-                            <span class="text-orange-400 ml-4 font-bold"
-                                style="font-size: 20pt; margin-right: -15px;">810968</span>
+                        <div class="mt-2 md:mt-0 ml-0   flex justify-center items-center h-full w-1/3">
+                            <span class="text-red-400 ml-4 font-bold " style="font-size: 20pt;">435</span>
                         </div>
-                        <div class="mt-2 md:mt-0 ml-0   flex items-center">
-                            <span class="text-orange-400 ml-4 font-bold" style="font-size: 20pt;">125027</span>
+                        <div class="mt-2 md:mt-0 ml-0  justify-center flex items-center w-1/3">
+                            <span class="text-red-400 ml-4 font-bold" style="font-size: 20pt;">暂无数据</span>
                         </div>
                     </li>
                     <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                        <div>
+                        <div class="w-1/3">
                             <span class="text-surface-900 dark:text-surface-0 font-bold mr-2 mb-1 md:mb-0"
-                                style="font-size: 14pt;">吉利汽车</span>
-                            <div class="mt-1 text-muted-color">月销量No.4</div>
+                                style="font-size: 14pt;">四川省</span>
+                            <div class="mt-1 text-muted-color">博物馆数量No.3</div>
                         </div>
-                        <div class="mt-2 md:mt-0 ml-0   flex justify-center items-center h-full">
-                            <span class="text-yellow-500 ml-4 font-bold"
-                                style="font-size: 20pt; margin-right: 5px;">509588</span>
+                        <div class="mt-2 md:mt-0 ml-0   flex justify-center items-center h-full w-1/3">
+                            <span class="text-orange-400 ml-4 font-bold" style="font-size: 20pt;">406</span>
                         </div>
-                        <div class="mt-2 md:mt-0 ml-0   flex items-center">
-                            <span class="text-yellow-500 ml-4 font-bold" style="font-size: 20pt;">63458</span>
+                        <div class="mt-2 md:mt-0 ml-0 w-1/3 justify-center flex items-center">
+                            <span class="text-orange-400 ml-4 font-bold" style="font-size: 20pt;">8540</span>
                         </div>
                     </li>
                     <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                        <div>
+                        <div class="w-1/3">
                             <span class="text-surface-900 dark:text-surface-0 font-bold mr-2 mb-1 md:mb-0"
-                                style="font-size: 14pt;">本田</span>
-                            <div class="mt-1 text-muted-color">月销量No.7</div>
+                                style="font-size: 14pt;">河南省</span>
+                            <div class="mt-1 text-muted-color">博物馆数量No.4</div>
                         </div>
-                        <div class="mt-2 md:mt-0 ml-0 flex justify-center items-center h-full">
-                            <span class="text-green-500 font-bold" style="font-size: 20pt;">498106</span>
+                        <div class="mt-2 md:mt-0 ml-0   flex justify-center items-center h-full w-1/3">
+                            <span class="text-yellow-500 ml-4 font-bold" style="font-size: 20pt;">395</span>
                         </div>
-                        <div class="mt-2 md:mt-0 ml-0 flex items-center">
-                            <span class="text-green-500 font-bold" style="font-size: 20pt;">51487</span>
+                        <div class="mt-2 md:mt-0 ml-0 w-1/3 justify-center flex items-center">
+                            <span class="text-yellow-500 ml-4 font-bold" style="font-size: 20pt;">8000</span>
+                        </div>
+                    </li>
+                    <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <div class="w-1/3">
+                            <span class="text-surface-900 dark:text-surface-0 font-bold mr-2 mb-1 md:mb-0"
+                                style="font-size: 14pt;">广东省</span>
+                            <div class="mt-1 text-muted-color">博物馆数量No.5</div>
+                        </div>
+                        <div class="mt-2 md:mt-0 ml-0 flex justify-center items-center h-full w-1/3">
+                            <span class="text-green-500 ml-4 font-bold" style="font-size: 20pt;">377</span>
+                        </div>
+                        <div class="mt-2 md:mt-0 ml-0 flex justify-center items-center w-1/3">
+                            <span class="text-green-500 ml-4 font-bold" style="font-size: 20pt;">7955</span>
                         </div>
                     </li>
                 </ul>
@@ -214,12 +194,12 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
         </div>
         <div class="col-span-12 xl:col-span-6">
             <div class="card">
-                <div class="font-semibold text-xl mb-4">月度销售行情（单位：万辆）</div>
+                <div class="font-semibold text-xl mb-4">全国博物馆年度接待游客数</div>
                 <Chart type="bar" :data="chartData" :options="chartOptions" class="h-80" />
             </div>
             <div class="card">
                 <div class="flex items-center justify-between mb-6">
-                    <div class="font-semibold text-xl">最新汽车销量数据</div>
+                    <div class="font-semibold text-xl">数据概览</div>
                 </div>
 
                 <ul class="p-0 m-0 list-none mb-6">
@@ -229,9 +209,9 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                             <i class="pi pi-dollar !text-xl text-blue-500"></i>
                         </div>
                         <span class="text-surface-900 dark:text-surface-0 leading-normal">
-                            <span class="text-surface-700 dark:text-surface-100 font-bold">2024年7月汽车销量 <span
+                            <span class="text-surface-700 dark:text-surface-100 font-bold">2023年全国博物馆数量 <span
                                     class="text-primary font-bold"
-                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">226.2</span>万辆</span>
+                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">6833</span>座</span>
                         </span>
                     </li>
                 </ul>
@@ -243,9 +223,9 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                             <i class="pi pi-dollar !text-xl text-pink-500"></i>
                         </div>
                         <span class="text-surface-900 dark:text-surface-0 leading-normal">
-                            <span class="text-surface-700 dark:text-surface-100 font-bold">2024年7月新能源汽车销量<span
+                            <span class="text-surface-700 dark:text-surface-100 font-bold">2023年国有博物馆藏品总数<span
                                     class="text-primary font-bold"
-                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">99.1</span>万辆</span>
+                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">3363.3</span>万件</span>
                         </span>
                     </li>
                 </ul>
@@ -257,9 +237,9 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                             <i class="pi pi-dollar !text-xl text-red-500"></i>
                         </div>
                         <span class="text-surface-900 dark:text-surface-0 leading-normal">
-                            <span class="text-surface-700 dark:text-surface-100 font-bold">2024年汽车累计销量 <span
+                            <span class="text-surface-700 dark:text-surface-100 font-bold">2023年博物馆总接待游客数<span
                                     class="text-primary font-bold"
-                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">1631</span>万辆</span>
+                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">102129</span>万人次</span>
                         </span>
                     </li>
                 </ul>
@@ -272,9 +252,9 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                             <i class="pi pi-dollar !text-xl text-green-500"></i>
                         </div>
                         <span class="text-surface-900 dark:text-surface-0 leading-normal">
-                            <span class="text-surface-700 dark:text-surface-100 font-bold">2024年新能源汽车累计销量 <span
+                            <span class="text-surface-700 dark:text-surface-100 font-bold">2023年总接待游客数同比增长 <span
                                     class="text-primary font-bold"
-                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">593.4</span>万辆</span>
+                                    style="font-size: 22pt; margin-left: 5px; margin-right: 5px;">123.7</span>%</span>
                         </span>
                     </li>
                 </ul>
@@ -286,9 +266,9 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                         <i class="pi pi-car !text-xl text-blue-500"></i>
                     </div>
                     <span class="text-surface-900 dark:text-surface-0 leading-normal">
-                        <span class="text-surface-700 dark:text-surface-100 font-bold">本网站共统计汽车类型信息 <span
+                        <span class="text-surface-700 dark:text-surface-100 font-bold">本网站共统计博物馆相关信息 <span
                                 class="text-primary font-bold"
-                                style="font-size: 22pt; margin-left: 5px; margin-right: 5px; color: crimson;">12765</span>条</span>
+                                style="font-size: 22pt; margin-left: 5px; margin-right: 5px; color: crimson;">？？？？？</span>条</span>
                     </span>
                 </li>
             </div>

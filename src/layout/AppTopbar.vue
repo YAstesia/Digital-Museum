@@ -1,11 +1,9 @@
 <script setup>
 import { chatAll, chatProvince, chatSeries } from '@/api';
 import { useLayout } from '@/layout/composables/layout';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useToast } from 'primevue/usetoast';
 import { nextTick, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import AppConfigurator from './AppConfigurator.vue';
 
 const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
 
@@ -145,71 +143,15 @@ const clearInput = () => {
                 <i class="pi pi-bars"></i>
             </button>
             <div @click="showSuccess" class="layout-topbar-logo" role="button" tabindex="0">
-                <img src="/src/assets/Vehiclism_logo.png" alt="Logo" class="logo-image">
-                <em class="art-text">Vehiclism汽车主义</em>
+                <em class="art-text"> Digital-Museum 数智博物</em>
             </div>
         </div>
 
         <div class="layout-topbar-actions">
             <div class="layout-config-menu">
-                <button type="button" class="layout-topbar-action" @click="toggleWindow">
-                    <font-awesome-icon icon="fa-solid fa-robot" />
-                </button>
-                <!-- 弹出窗口 -->
-                <div v-if="showWindow" class="popup-window">
-                    <div class="font-semibold text-xl mb-2 text-center" style="color: black;">🤖 Vehiclism小助手</div>
-                    <!-- textarea 展示后端数据 -->
-                    <Textarea v-model="responseData" placeholder="" style="height: 500px; width: 100%; resize: none;"
-                        readonly />
-
-                    <!-- A, B, C 切换按钮 -->
-                    <div class="button-group">
-                        <Button type="button" class="mr-2 mb-2" :disabled="activeButton === 'A'"
-                            @click="setActiveButton('A')" label="智能问答" style="margin-right: 20px;" />
-                        <Button type="button" class="mr-2 mb-2" :disabled="activeButton === 'B'"
-                            @click="setActiveButton('B')" label="个性化定制建议" style="margin-right: 20px;" />
-                        <Button type="button" class="mr-2 mb-2" :disabled="activeButton === 'C'"
-                            @click="setActiveButton('C')" label="提供销售方案" />
-                    </div>
-
-                    <!-- A 或 C 激活时显示 -->
-                    <div v-if="activeButton === 'A'">
-                        <InputText type="text" v-model="inputValue" placeholder="请在此输入想提问的内容，例如“什么是发动机排量？”"
-                            style="width: 100%;" />
-                    </div>
-
-                    <div v-if="activeButton === 'C'">
-                        <InputText type="text" v-model="inputValue" placeholder="请在此输入想要分析的车系" style="width: 100%;" />
-                    </div>
-
-                    <!-- B 激活时显示 -->
-                    <div v-if="activeButton === 'B'">
-                        <Select v-model="dropdownValue" style="width: 40%;" :options="dropdownOptions"
-                            optionLabel="name" placeholder="选择省份" append-to="self">
-                        </select>
-                        <InputText type="text" v-model="smallInputValue" placeholder="输入您的身份/职业" style="width: 60%;" />
-                    </div>
-
-                    <!-- 发送和清空按钮 -->
-                    <div class="action-buttons">
-                        <Button type="button" class="mr-2 mb-2" @click="sendData">发送提问</button>
-                        <Button type="button" class="mr-2 mb-2" @click="clearInput"
-                            style="background-color: crimson; margin-left:70px;">清空输入框</button>
-                        <Button type="button" class="mr-2 mb-2" @click="clearResponse"
-                            style="background-color: crimson;">清空对话框</button>
-                    </div>
-                </div>
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"></i>
                 </button>
-                <div class="relative">
-                    <button
-                        v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
-                        type="button" class="layout-topbar-action layout-topbar-action-highlight">
-                        <i class="pi pi-palette"></i>
-                    </button>
-                    <AppConfigurator />
-                </div>
             </div>
 
             <button class="layout-topbar-menu-button layout-topbar-action"

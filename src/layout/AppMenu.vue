@@ -5,7 +5,7 @@ import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
     {
-        label: 'Vehiclism',
+        label: '数智博物',
         items: [
             {
                 label: '功能导航', icon: 'pi pi-fw pi-bars',
@@ -16,35 +16,28 @@ const model = ref([
                         to: '/dashboard'
                     },
                     {
-                        label: '汽车数据查询',
+                        label: '数据查询',
                         icon: 'pi pi-fw pi-search',
                         items: [
-                            { label: '车型查询', icon: 'pi pi-fw pi-search-plus', to: '/carsearch' },
-                            { label: '销量信息查询', icon: 'pi pi-fw pi-search-plus', to: '/salesearch' }
+                            { label: '博物馆数据查询', icon: 'pi pi-fw pi-search-plus', to: '/carsearch' },
+                            { label: '藏品信息查询', icon: 'pi pi-fw pi-search-plus', to: '/salesearch' }
                         ]
                     },
                     {
-                        label: '汽车大数据分析',
+                        label: '博物馆大数据分析',
                         icon: 'pi pi-fw pi-globe',
                         items: [
-                            { label: '汽车销售趋势', icon: 'pi pi-fw pi-chart-bar', to: '/salestrend' },
-                            { label: '汽车销量分析', icon: 'pi pi-fw pi-chart-bar', to: '/salesanalysis' },
-                            { label: '汽车销售排行榜', icon: 'pi pi-fw pi-chart-bar', to: '/hotsales' },
-                            { label: '购车目的分析', icon: 'pi pi-fw pi-chart-bar', to: '/purpose' },
+                            { label: '博物馆数据分析', icon: 'pi pi-fw pi-chart-bar', to: '/salestrend' },
+                            { label: '博物馆藏品分析', icon: 'pi pi-fw pi-chart-bar', to: '/salesanalysis' },
+                            { label: '博物馆参观排行榜', icon: 'pi pi-fw pi-chart-bar', to: '/hotsales' },
+                            { label: '数字博物馆分析', icon: 'pi pi-fw pi-chart-bar', to: '/purpose' },
                         ]
                     },
                     {
                         label: '工具',
                         icon: 'pi pi-fw pi-wrench',
                         items: [
-                            { label: '车型比较', icon: 'pi pi-fw pi-comments', to: '/carcompare' }
-                        ]
-                    },
-                    {
-                        label: '我的',
-                        icon: 'pi pi-fw pi-user',
-                        items: [
-                            { label: '个人中心', icon: 'pi pi-fw pi-star', to: '/pages/profile' }
+                            { label: '博物馆比较', icon: 'pi pi-fw pi-comments', to: '/carcompare' }
                         ]
                     },
                 ]

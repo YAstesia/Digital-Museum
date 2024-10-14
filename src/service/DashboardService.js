@@ -3,63 +3,63 @@ export const DashboardService = {
         return [
             {
                 rank: 1,
-                series: '比亚迪',
-                type: '秦plus',
-                sales: 39710
+                series: '故宫博物院',
+                type: '1917657',
+                sales: 1933
             },
             {
                 rank: 2,
-                series: '特斯拉',
-                type: 'Model Y',
-                sales: 36299
+                series: '秦始皇帝陵博物馆',
+                type: '7585',
+                sales: 1122
             },
             {
                 rank: 3,
-                series: '比亚迪',
-                type: '海鸥',
-                sales: 34789
+                series: '中国国家博物馆',
+                type: '1431493',
+                sales: 676
             },
             {
                 rank: 4,
-                series: '比亚迪',
-                type: '宋plus新能源',
-                sales: 34306
+                series: '南京博物院',
+                type: '433265',
+                sales: 507
             },
             {
                 rank: 5,
-                series: '比亚迪',
-                type: '秦L',
-                sales: 32466
+                series: '苏州博物馆',
+                type: '34011',
+                sales: 485
             },
             {
                 rank: 6,
-                series: '比亚迪',
-                type: '元plus',
-                sales: 25594
+                series: '武侯祠博物馆',
+                type: '23191',
+                sales: 453
             },
             {
                 rank: 7,
-                series: '理想',
-                type: '理想L6',
-                sales: 24856
+                series: '沈阳故宫博物院',
+                type: '109191',
+                sales: 441
             },
             {
                 rank: 8,
-                series: '大众',
-                type: '朗逸',
-                sales: 24356
+                series: '湖南博物院',
+                type: '527559',
+                sales: 440
             },
             {
                 rank: 9,
-                series: '比亚迪',
-                type: '海豹06 DM-i',
-                sales: 21659
+                series: '湖北省博物馆',
+                type: '242757',
+                sales: 436
             },
             {
                 rank: 10,
-                series: '东风日产',
-                type: '轩逸',
-                sales: 21618
+                series: '中国大运河博物馆',
+                type: '6503',
+                sales: 421
             },
         ];
     },
