@@ -26,10 +26,9 @@ const model = ref([
                         label: '博物馆大数据分析',
                         icon: 'pi pi-fw pi-globe',
                         items: [
-                            { label: '博物馆数据分析', icon: 'pi pi-fw pi-chart-bar', to: '/salestrend' },
-                            { label: '博物馆藏品分析', icon: 'pi pi-fw pi-chart-bar', to: '/salesanalysis' },
-                            { label: '博物馆参观排行榜', icon: 'pi pi-fw pi-chart-bar', to: '/hotsales' },
-                            { label: '数字博物馆分析', icon: 'pi pi-fw pi-chart-bar', to: '/purpose' },
+                            { label: '博物馆数量分析', icon: 'pi pi-fw pi-chart-bar', to: '/salesanalysis' },
+                            { label: '博物馆游客量分析', icon: 'pi pi-fw pi-chart-bar', to: '/hotsales' },
+                            { label: '博物馆藏品分析', icon: 'pi pi-fw pi-chart-bar', to: '/purpose' },
                         ]
                     },
                     {
