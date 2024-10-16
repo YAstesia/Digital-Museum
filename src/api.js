@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://10.208.107.202:8081', //校园网10.208.112.75，oasis192.168.43.129
+  baseURL: 'http://localhost:8081', //校园网10.208.112.75，oasis192.168.43.129
   headers: {
     'Content-Type': 'application/json',
   },
@@ -165,7 +165,7 @@ export function getAllCities(){
 
 //搜索车型
 export function SearchCarTirm(pageNum,pageSize,keyword){
-  return api.post('/search/keyword',{pageNum,pageSize,keyword});
+  return api.post('/museum/museum/keyword',{pageNum,pageSize,keyword});
 }
 
 export function getBrandSaleMonth(year,month){

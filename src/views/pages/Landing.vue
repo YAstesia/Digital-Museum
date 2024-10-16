@@ -26,35 +26,33 @@ function smoothScroll(id) {
                 </div>
             </div>
 
-            <div id="hero" class="flex flex-col pt-6 px-6 lg:px-20 overflow-hidden" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(255, 160, 122) 0%, rgb(255,128,144) 100%); 
-                clip-path: ellipse(150% 50% at -15% 50%); margin-top: -30px;">
-                <div class="mx-6 md:mx-20 mt-0 md:mt-6">
-                    <h1 class="text-6xl font-bold text-gray-900 leading-tight"><span
+            <div id="hero" class="flex flex-row pt-6 px-6 lg:px-20 overflow-hidden" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), 
+            radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(255, 160, 122) 0%, rgb(255,128,144) 100%);
+            clip-path: ellipse(150% 50% at -15% 50%); margin-top: -30px;">
+                <div class="flex justify-center items-center">
+                    <img rel="preload" src="/demo/images/landing/landing2.png" alt="Hero Image"
+                        class="w-9/12 md:w-auto transform transition-transform duration-1000 ease-in-out opacity-0 translate-y-10 animate-fade-in"
+                        style="width: 500px; height: 500px; margin-left: 100px; margin-top: 100px;" loading="lazy" />
+                </div>
+                <div class="mx-6 md:mx-20 mt-0 md:mt-6 flex flex-col justify-center text-right ml-auto"
+                    style="margin-left: 400px;">
+                    <h1 class="text-7xl font-bold text-gray-900 leading-tight"><span
                             class="font-light block">丰富的</span>图表展示风格</h1>
                     <p class="font-normal text-2xl leading-normal md:mt-4 text-gray-700">图文并茂，数据统计一目了然</p>
-                    <Button label="进入网站" as="router-link" to="/dashboard" rounded class="!text-xl mt-8 !px-4"
-                        style="background-color:lightsalmon; border-color: black; color: black;"></Button>
-                </div>
-                <div class="flex justify-center md:justify-end">
-                    <img rel="preload" src="/demo/images/landing/landing1.png" alt="Hero Image"
-                        class="w-9/12 md:w-auto transform transition-transform duration-1000 ease-in-out opacity-0 translate-y-10 animate-fade-in"
-                        style="margin-top: -150px; width: 500px; height: 400px; margin-right: 80px;" loading="lazy" />
                 </div>
             </div>
 
             <div id="hero" class="flex flex-col pt-6 px-6 lg:px-20 overflow-hidden" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(240, 230, 140) 0%, rgb(255, 218, 185) 100%); 
                 clip-path: ellipse(150% 87% at 105% 90%); margin-top: -30px;">
-                <div class="mx-6 md:mx-20 mt-0 md:mt-6">
-                    <h1 class="text-6xl font-bold text-gray-900 leading-tight"><span
+                <div class="mx-6 md:mx-20 mt-0 md:mt-6" style="margin-top: 200px; margin-left: 150px;">
+                    <h1 class="text-7xl font-bold text-gray-900 leading-tight"><span
                             class="font-light block">生动的</span>数据展示样式</h1>
                     <p class="font-normal text-2xl leading-normal md:mt-4 text-gray-700">所见即所得，让数据展示更加直观</p>
-                    <Button label="进入网站" as="router-link" to="/dashboard" rounded class="!text-xl mt-8 !px-4"
-                        style="background-color:lightsalmon; border-color: black; color: black;"></Button>
                 </div>
                 <div class="flex justify-center md:justify-end">
-                    <img rel="preload" src="/demo/images/landing/landing1.png" alt="Hero Image"
+                    <img rel="preload" src="/demo/images/landing/landing3.png" alt="Hero Image"
                         class="w-9/12 md:w-auto transform transition-transform duration-1000 ease-in-out opacity-0 translate-y-10 animate-fade-in"
-                        style="margin-top: -150px; width: 500px; height: 400px; margin-right: 80px;" loading="lazy" />
+                        style="margin-top: -220px; width: 600px; height: 400px; margin-right: 120px;" loading="lazy" />
                 </div>
             </div>
 

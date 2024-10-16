@@ -194,13 +194,13 @@ function setColorOptions() {
 
 function formatBarData() {
     return {
-        labels: ["山东省", "浙江省", "四川省", "河南省", "广东省", "江苏省", "陕西省", "湖北省", "甘肃省", "安徽省",],
+        labels: ["北京市", "四川省", "山东省", "上海市", "陕西省", "广东省", "湖北省", "浙江省", "陕西省", "河南省",],
         datasets: [
             {
-                label: '博物馆数量',
+                label: '藏品数量',
                 backgroundColor: ["#ff99ff"],
                 borderColor: getComputedStyle(document.documentElement).getPropertyValue('--p-primary-500'),
-                data: [711, 435, 406, 395, 376, 349, 337, 236, 236, 234],
+                data: [14299303, 4972555, 3886036, 3692636, 3100442, 2650716, 2158783, 1918634, 1847923, 1832205],
                 ranking: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             }
         ]
@@ -255,7 +255,7 @@ function formatPieData() {
         labels: ['华北地区', '华南地区', '华中地区', '东北地区', '西北地区', '西南地区', '华东地区'],
         datasets: [
             {
-                data: [850, 556, 812, 442, 825, 880, 2199],
+                data: [18306722, 3319112, 5994809, 3184655, 5133989, 8045770, 12994325],
                 backgroundColor: [documentStyle.getPropertyValue('--p-indigo-500'), documentStyle.getPropertyValue('--p-purple-500'), documentStyle.getPropertyValue('--p-teal-500'), documentStyle.getPropertyValue('--p-red-500'), documentStyle.getPropertyValue('--p-blue-500'), documentStyle.getPropertyValue('--p-yellow-500'), documentStyle.getPropertyValue('--p-orange-500')],
                 hoverBackgroundColor: [documentStyle.getPropertyValue('--p-indigo-400'), documentStyle.getPropertyValue('--p-purple-400'), documentStyle.getPropertyValue('--p-teal-400'), documentStyle.getPropertyValue('--p-red-400'), documentStyle.getPropertyValue('--p-blue-400'), documentStyle.getPropertyValue('--p-yellow-400'), documentStyle.getPropertyValue('--p-orange-400')],
             }
@@ -281,41 +281,41 @@ async function loadMapData() {
 
     // 创建 ProvinceSale 数据，这里假设数据来源与你提供的一致
     const ProvinceSale = [
-        { province: '北京市', totalSale: 180 },
-        { province: '天津市', totalSale: 74 },
-        { province: '河北省', totalSale: 205 },
-        { province: '山西省', totalSale: 218 },
-        { province: '内蒙古自治区', totalSale: 173 },
-        { province: '辽宁省', totalSale: 121 },
-        { province: '吉林省', totalSale: 107 },
-        { province: '黑龙江省', totalSale: 214 },
-        { province: '上海市', totalSale: 133 },
-        { province: '江苏省', totalSale: 349 },
-        { province: '浙江省', totalSale: 435 },
-        { province: '安徽省', totalSale: 234 },
-        { province: '福建省', totalSale: 143 },
-        { province: '江西省', totalSale: 194 },
-        { province: '山东省', totalSale: 711 },
-        { province: '河南省', totalSale: 395 },
-        { province: '湖北省', totalSale: 236 },
-        { province: '湖南省', totalSale: 181 },
-        { province: '广东省', totalSale: 376 },
-        { province: '广西壮族自治区', totalSale: 138 },
-        { province: '海南省', totalSale: 42 },
-        { province: '重庆市', totalSale: 130 },
-        { province: '四川省', totalSale: 406 },
-        { province: '贵州省', totalSale: 148 },
-        { province: '云南省', totalSale: 183 },
-        { province: '西藏自治区', totalSale: 13 },
-        { province: '陕西省', totalSale: 337 },
-        { province: '甘肃省', totalSale: 236 },
-        { province: '青海省', totalSale: 41 },
-        { province: '宁夏回族自治区', totalSale: 68 },
-        { province: '新疆维吾尔自治区', totalSale: 143 },
+        { province: '北京市', totalSale: 14299303 },
+        { province: '天津市', totalSale: 778783 },
+        { province: '河北省', totalSale: 555176 },
+        { province: '山西省', totalSale: 1847923 },
+        { province: '内蒙古自治区', totalSale: 1351837 },
+        { province: '辽宁省', totalSale: 968056 },
+        { province: '吉林省', totalSale: 1073659 },
+        { province: '黑龙江省', totalSale: 1142940 },
+        { province: '上海市', totalSale: 3692635 },
+        { province: '江苏省', totalSale: 1753737 },
+        { province: '浙江省', totalSale: 1918634 },
+        { province: '安徽省', totalSale: 909063 },
+        { province: '福建省', totalSale: 795220 },
+        { province: '江西省', totalSale: 747775 },
+        { province: '山东省', totalSale: 3886036 },
+        { province: '河南省', totalSale: 1832205 },
+        { province: '湖北省', totalSale: 2158783 },
+        { province: '湖南省', totalSale: 1256047 },
+        { province: '广东省', totalSale: 2650716 },
+        { province: '广西壮族自治区', totalSale: 484870 },
+        { province: '海南省', totalSale: 183526 },
+        { province: '重庆市', totalSale: 770046 },
+        { province: '四川省', totalSale: 4972555 },
+        { province: '贵州省', totalSale: 315324 },
+        { province: '云南省', totalSale: 1785406 },
+        { province: '西藏自治区', totalSale: 205439 },
+        { province: '陕西省', totalSale: 3100442 },
+        { province: '甘肃省', totalSale: 983316 },
+        { province: '青海省', totalSale: 196707 },
+        { province: '宁夏回族自治区', totalSale: 422013 },
+        { province: '新疆维吾尔自治区', totalSale: 431511 }
     ];
 
     // 计算排名和百分比
-    const totalSales = 6565; // 假设总销量为 6565
+    const totalSales = 57470076; // 假设总销量为 6565
     let sortedSales = ProvinceSale.slice().sort((a, b) => b.totalSale - a.totalSale);
 
     sortedSales.forEach((item, index) => {
@@ -350,7 +350,7 @@ async function loadMapData() {
             formatter: function (params) {
                 return `
                     ${params.name}<br/>
-                    博物馆数量：${params.value}<br/>
+                    藏品数量：${params.value}<br/>
                     数量排名：${params.data.ranking}<br/>
                     数量占比：${params.data.percentage}%
                 `;

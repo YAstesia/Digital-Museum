@@ -266,9 +266,9 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                         <i class="pi pi-car !text-xl text-blue-500"></i>
                     </div>
                     <span class="text-surface-900 dark:text-surface-0 leading-normal">
-                        <span class="text-surface-700 dark:text-surface-100 font-bold">本网站共统计博物馆相关信息 <span
+                        <span class="text-surface-700 dark:text-surface-100 font-bold">本网站共统计博物馆相关数据 <span
                                 class="text-primary font-bold"
-                                style="font-size: 22pt; margin-left: 5px; margin-right: 5px; color: crimson;">？？？？？</span>条</span>
+                                style="font-size: 22pt; margin-left: 5px; margin-right: 5px; color: crimson;">59085</span>条</span>
                     </span>
                 </li>
             </div>

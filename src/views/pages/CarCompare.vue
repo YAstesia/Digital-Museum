@@ -6,18 +6,16 @@ import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const { getPrimary, getSurface, isDarkTheme } = useLayout();
-const pieData = ref(null);
-const pieOptions = ref(null);
-const barData = ref(null);
-const barOptions = ref(null);
-const radarData = ref(null);
-const radarOptions = ref(null);
 const lineData = ref(null);
-const lineOptions = ref(null);
 const polarData = ref(null);
 const polarData1 = ref(null);
-
-const polarOptions = ref(null);
+const searchQuery = ref('');
+const searchQuery2 = ref('');
+const searchQuery3 = ref('');
+const barData = ref({
+    labels: ["年接待游客数", "馆藏珍贵文物数", "馆藏文物数"],
+    datasets: []
+});
 var tirmDetail = new Array();
 // const tirmDetail = ref([]);
 let TirmNames = ref([]);
@@ -51,6 +49,8 @@ onMounted(() => {
     // console.log(TirmNames.value);
 
 });
+
+
 async function showAllChartData() {
     // 创建一个包含所有 fetchCarTirmDetail 调用的 Promise 数组
     // console.log(TirmNames.value);
@@ -64,29 +64,110 @@ async function showAllChartData() {
     updateLineData(TirmSales);
     updateBarData();
 }
-function updateBarData() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const colors = [documentStyle.getPropertyValue('--p-indigo-500'), documentStyle.getPropertyValue('--p-purple-500'), documentStyle.getPropertyValue('--p-teal-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-red-500')];
-    barData.value = {
-        labels: ["综合评分", "空间评分", "驾驶感受", "能耗评分", "外观评分", "内饰评分", "性价比", "配置评分"],
-        datasets: []
-    }
-    // console.log(tirmDetail.length);
-    for (let i = 0; i < tirmDetail.length; ++i) {
-        const color = colors[i];
-        if (tirmDetail[i].evls != null) {
-            const dataset = {
-                label: tirmDetail[i].tirm,
-                data: tirmDetail[i].evls,
-                fill: false,
-                backgroundColor: color,
-                borderColor: color,
-                tension: 0.4
-            }
-            barData.value.datasets.push(dataset);
+
+async function search1() {
+    try {
+        const response = await fetch('http://localhost:8081/museum/museum/mname', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mname: searchQuery.value })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            updateBarData(result.data, 0);  // 传入数据和数据集索引
+        } else {
+            console.error(result.msg);
         }
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
 }
+
+// search2 函数
+async function search2() {
+    try {
+        const response = await fetch('http://localhost:8081/museum/museum/mname', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mname: searchQuery2.value })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            updateBarData(result.data, 1);  // 传入数据和数据集索引
+        } else {
+            console.error(result.msg);
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
+async function search3() {
+    try {
+        const response = await fetch('http://localhost:8081/museum/museum/mname', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mname: searchQuery3.value })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            updateBarData(result.data, 2);  // 传入数据和数据集索引
+        } else {
+            console.error(result.msg);
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
+
+// clear 函数
+function clear() {
+    searchQuery.value = '';
+    searchQuery2.value = '';
+    searchQuery3.value = '';
+    barData.value = {
+        labels: ["年接待游客数", "馆藏珍贵文物数", "馆藏文物数"],
+        datasets: []
+    };
+}
+
+function updateBarData(data, datasetIndex) {
+    if (!data || !data.mname) {
+        console.error('Invalid data:', data);
+        return;
+    }
+
+    const colors = ['#3f51b5', '#e91e63', '#4caf50', '#ff9800'];
+
+    const newDataset = {
+        label: data.mname,
+        data: [data.mvisitors, data.mpreciousItems, data.mtotalItems],
+        backgroundColor: colors[datasetIndex],
+        borderColor: colors[datasetIndex],
+        borderWidth: 1,
+        //yAxisID: 'y-axis-default'
+    };
+
+    // 直接替换 datasets，避免过多处理
+    barData.value.datasets[datasetIndex] = newDataset;
+
+    // 强制 Vue 重新渲染图表
+    nextTick(() => {
+        barData.value = { ...barData.value };
+        chartInstance.update();
+    });
+}
+
 // function updateLineData() {
 //     lineData = formatLineData();
 // }
@@ -206,209 +287,12 @@ function formatPolarData1(data) {
         ]
     };
 }
-const fetchCarSales = async (id, year) => {
-    try {
-        const response = await getCarSales(id, year)
-        let sales = [];
-        let YearlySale = 0;
-        if (response.data.success) {
-            sales = response.data.data;
-            sales.forEach(sale => {
-                YearlySale += sale.totalSale;
-            });
-            TirmSales.push(sales);
-            console.log(TirmSales);
-            YearlySales.push({ sale: YearlySale });
-            // console.log(YearlySales);
-        }
-        else {
-            console.error('查询失败:', response.data.msg)
-        }
-    } catch (error) {
-        console.error('获取数据失败:', error)
-    }
-}
-const fetchCarEvaluation = async (id) => {
-    try {
-        const response = await getCarEvl(id)
-        if (response.data.success) {
-            const evalData = response.data.data
-            // 使用从后端获取的数据替换 detail 数组的数值
-            detail.value = [
-                evalData.overallRating,
-                evalData.space,
-                evalData.driveFeel,
-                evalData.powerConsum,
-                evalData.outDecor,
-                evalData.inDecor,
-                evalData.qpRatio,
-                evalData.configure
-            ]
-        } else {
-            console.error('查询失败:', response.data.msg)
-        }
-    } catch (error) {
-        console.error('获取数据失败:', error)
-    }
-}
+
 function setColorOptions() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    barData.value = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-            {
-                label: 'My First dataset',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-500'),
-                borderColor: documentStyle.getPropertyValue('--p-primary-500'),
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: 'My Second dataset',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-200'),
-                borderColor: documentStyle.getPropertyValue('--p-primary-200'),
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-        ]
-    };
-    barOptions.value = {
-        plugins: {
-            legend: {
-                labels: {
-                    fontColor: textColor
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary,
-                    font: {
-                        weight: 500
-                    }
-                },
-                grid: {
-                    display: false,
-                    drawBorder: false
-                }
-            },
-            y: {
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder,
-                    drawBorder: false
-                }
-            }
-        }
-    };
-    lineData.value = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: []
-    };
-
-    lineOptions.value = {
-        plugins: {
-            legend: {
-                labels: {
-                    fontColor: textColor
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder,
-                    drawBorder: false
-                }
-            },
-            y: {
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder,
-                    drawBorder: false
-                }
-            }
-        }
-    };
-
-    polarData.value = {
-        datasets: [
-            {
-                data: [],
-                backgroundColor: [documentStyle.getPropertyValue('--p-indigo-500'), documentStyle.getPropertyValue('--p-purple-500'), documentStyle.getPropertyValue('--p-teal-500'), documentStyle.getPropertyValue('--p-orange-500')],
-                label: '车型价格'
-            }
-        ],
-        labels: []
-    };
-
-    polarOptions.value = {
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                labels: {
-                    color: textColor
-                }
-            }
-        },
-        scales: {
-            r: {
-                grid: {
-                    color: surfaceBorder
-                }
-            }
-        }
-    };
-    radarData.value = {
-        labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-        datasets: [
-            {
-                label: 'My First dataset',
-                borderColor: documentStyle.getPropertyValue('--p-indigo-400'),
-                pointBackgroundColor: documentStyle.getPropertyValue('--p-indigo-400'),
-                pointBorderColor: documentStyle.getPropertyValue('--p-indigo-400'),
-                pointHoverBackgroundColor: textColor,
-                pointHoverBorderColor: documentStyle.getPropertyValue('--p-indigo-400'),
-                data: [65, 59, 90, 81, 56, 55, 40]
-            },
-            {
-                label: 'My Second dataset',
-                borderColor: documentStyle.getPropertyValue('--p-purple-400'),
-                pointBackgroundColor: documentStyle.getPropertyValue('--p-purple-400'),
-                pointBorderColor: documentStyle.getPropertyValue('--p-purple-400'),
-                pointHoverBackgroundColor: textColor,
-                pointHoverBorderColor: documentStyle.getPropertyValue('--p-purple-400'),
-                data: [28, 48, 40, 19, 96, 27, 100]
-            }
-        ]
-    };
-
-    radarOptions.value = {
-        plugins: {
-            legend: {
-                labels: {
-                    fontColor: textColor
-                }
-            }
-        },
-        scales: {
-            r: {
-                grid: {
-                    color: textColorSecondary
-                }
-            }
-        }
-    };
 }
 
 watch(
@@ -420,55 +304,32 @@ watch(
 );
 
 const router = useRouter();
-const navigateToCarTirmDetail = (tirm) => {
-    router.push(`/typedetail/${tirm}`);
-};
 
 </script>
 
 <template>
     <div class="card">
-        <div class="font-semibold text-xl" style="margin-bottom: 30px;">车型比较（点击车型名称可跳转至详情页面）</div>
-        <div class="flex ">
-            <div class="font-semibold text-xl">已加入比较的车型：</div>
-            <div class="  text-xl mr-8" style=" text-decoration: underline;" @click="navigateToCarTirmDetail(tirm1)">{{
-                tirm1 }}</div>
-            <div class="  text-xl mr-8" style=" text-decoration: underline;" @click="navigateToCarTirmDetail(tirm2)">{{
-                tirm2 }}</div>
-            <div class="  text-xl mr-8" style=" text-decoration: underline;" @click="navigateToCarTirmDetail(tirm3)">{{
-                tirm3 }}</div>
-            <div class="  text-xl mr-8" style=" text-decoration: underline;" @click="navigateToCarTirmDetail(tirm4)">{{
-                tirm4 }}</div>
-            <div class="  text-xl mr-8" style=" text-decoration: underline;" @click="navigateToCarTirmDetail(tirm5)">{{
-                tirm5 }}</div>
+        <div class="font-semibold text-xl" style="margin-bottom: 30px;">博物馆比较
+            <Button label="清空比较" @click="clear" style="margin-left: 20px;" />
+        </div>
+
+        <div class="flex">
+            <InputGroup class="mb-4" style="width: 300px; margin-right: 50px;">
+                <InputText v-model="searchQuery" placeholder="输入需要对比的第一个博物馆" />
+                <Button label="加入比较" @click="search1" />
+            </InputGroup>
+            <InputGroup class="mb-4" style="width: 300px; margin-right: 50px;">
+                <InputText v-model="searchQuery2" placeholder="输入需要对比的第二个博物馆" />
+                <Button label="加入比较" @click="search2" />
+            </InputGroup>
+            <InputGroup class="mb-4" style="width: 300px; margin-right: 50px;">
+                <InputText v-model="searchQuery3" placeholder="输入需要对比的第三个博物馆" />
+                <Button label="加入比较" @click="search3" />
+            </InputGroup>
         </div>
     </div>
-    <div class="grid grid-cols-12 gap-8 mt-8">
-        <div class="col-span-12 xl:col-span-6">
-            <div class="card flex flex-col justify-center items-center" style="height: 500px;">
-                <div class="font-semibold text-xl mb-4">价格对比</div>
-                <Chart type="polarArea" :data="polarData" :options="polarOptions"
-                    style="height: 100%; width: 100%; padding: 0;">
-                </Chart>
-            </div>
-        </div>
-        <div class="col-span-12 xl:col-span-6">
-            <div class="card flex flex-col justify-center items-center" style="height: 500px;">
-                <div class="font-semibold text-xl mb-4">销量对比(2024年)</div>
-                <Chart type="polarArea" :data="polarData1" :options="polarOptions"
-                    style="height: 100%; width: 100%; padding: 0;">
-                </Chart>
-            </div>
-        </div>
+    <div class="grid grid-cols-12 gap-8 mt-8" style="margin-left: 200px; width: 1600px;">
         <div class=" col-span-12 xl:col-span-6">
-            <div class="card flex flex-col justify-center items-center" style="height: 500px;">
-                <div class="font-semibold text-xl mb-4">销售趋势</div>
-                <Chart type="line" :data="lineData" :options="lineOptions"
-                    style="height: 100%; width: 100%; padding: 0;margin-top: 50px;"></Chart>
-            </div>
-        </div>
-        <div class=" col-span-12 xl:col-span-6">
-
             <div class="card flex flex-col justify-center items-center" style="height: 500px;">
                 <div class="font-semibold text-xl mb-4">指标比较</div>
                 <Chart type="bar" :data="barData" :options="barOptions"
@@ -476,49 +337,4 @@ const navigateToCarTirmDetail = (tirm) => {
             </div>
         </div>
     </div>
-    <!-- 
-    <div class="col-span-12 xl:col-span-6">
-        <div class="card">
-            <div class="w-full overflow-x-auto">
-                <table class="min-w-full border-2 border-gray-300 divide-y divide-gray-300">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                        style="text-align: left;">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 w-1/10">
-                                <div class="font-semibold text-xl">参数类型</div>
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-7/30">
-                                <div class="font-semibold text-xl">参数名称</div>
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/6">
-                                <div class="font-semibold text-xl">配置1</div>
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/6">
-                                <div class="font-semibold text-xl">配置2</div>
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/6">
-                                <div class="font-semibold text-xl">配置3</div>
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/6">
-                                <div class="font-semibold text-xl">配置4</div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-300">
-                        <tr v-for="item in configData" :key="item.id"
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="px-6"><span style="font-size: 10pt; ">{{
-                                item.configType
-                                    }}</span></td>
-                            <td class="px-6" @click="navigateToCarSeriesDetail(item)"><span style="font-size: 10pt;">
-                                    {{ item.configName
-                                    }}</span></td>
-                            <td><span style="font-size: 10pt; ">
-                                    {{ item.configValue }}</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> -->
 </template>
